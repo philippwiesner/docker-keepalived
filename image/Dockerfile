@@ -1,9 +1,9 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:alpine-0.1.6-dev
+FROM osixia/light-baseimage:alpine-0.1.9
 
 # Keepalived version
-ARG KEEPALIVED_VERSION=2.0.20
+ARG KEEPALIVED_VERSION=2.1.5
 
 # Download, build and install Keepalived
 RUN apk --no-cache add \
@@ -22,6 +22,7 @@ RUN apk --no-cache add \
     musl-dev \
     openssl \
     openssl-dev \
+    jq \
     && curl -o keepalived.tar.gz -SL http://keepalived.org/software/keepalived-${KEEPALIVED_VERSION}.tar.gz \
     && mkdir -p /container/keepalived-sources \
     && tar -xzf keepalived.tar.gz --strip 1 -C /container/keepalived-sources \
@@ -40,7 +41,7 @@ RUN apk --no-cache add \
     libnl3-dev \
     make \
     musl-dev \
-    openssl-dev
+    openssl-dev 
 
 # Add service directory to /container/service
 ADD service /container/service
